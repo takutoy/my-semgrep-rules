@@ -1,0 +1,15 @@
+<html>
+    <body>
+        <script>
+const qs = window.location.search;
+const hash = window.location.hash;
+
+// ruleid:dom-based-xss
+document.write(qs);
+document.write(hash);
+
+// ok:dom-based-xss
+document.write("<OPTION value=2>English</OPTION>");
+        </script>
+    </body>
+</html>

@@ -1,0 +1,39 @@
+rules:
+- id: dom-based-xss-reflected
+  mode: taint
+  message: dom-xss
+  languages:
+  - javascript
+  - typescript
+  severity: ERROR
+  pattern-sources:
+  - pattern-either:
+    - pattern: location
+    - pattern: window.location
+    - pattern: document.location
+    - pattern: document.URL
+    - pattern: window.name
+    - pattern: document.referrer
+    - pattern: document.documentURI
+    - pattern: document.baseURI
+    - pattern: document.cookie
+  pattern-propagators:
+  - pattern: $S.push($E)
+    from: $E
+    to: $S
+  pattern-sinks:
+  - pattern-either:
+    - pattern: document.write(...)
+    - pattern: document.writeln(...)
+    - pattern: document.domain = $PAYLOAD
+    - pattern: $ELEMENT.innerHTML = $PAYLOAD
+    - pattern: $ELEMENT.outerHTML = $PAYLOAD
+    - pattern: $JQ.add($PAYLOAD)
+    - pattern: $JQ.html($PAYLOAD)
+- id: extract-html-to-javascript
+  mode: extract
+  languages:
+    - html
+  pattern: <script>$...SCRIPT</script>
+  extract: $...SCRIPT
+  dest-language: javascript
