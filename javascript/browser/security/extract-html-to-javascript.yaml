@@ -1,0 +1,8 @@
+rules:
+- id: extract-html-to-javascript
+  mode: extract
+  languages:
+    - html
+  pattern: <script>$...SCRIPT</script>
+  extract: $...SCRIPT
+  dest-language: javascript

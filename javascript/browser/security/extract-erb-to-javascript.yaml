@@ -1,0 +1,13 @@
+rules:
+- id: extract-erb-to-javascript
+  mode: extract
+  languages:
+    - generic
+  options:
+    generic_ellipsis_max_span: 500
+  pattern: ...<script>$...SCRIPT</script>
+  extract: $...SCRIPT
+  dest-language: javascript
+  paths:
+    include:
+      - "*.erb"

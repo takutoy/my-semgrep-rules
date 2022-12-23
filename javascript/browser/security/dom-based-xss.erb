@@ -1,0 +1,16 @@
+<div>
+  <p><%= @current_user.name %></p>
+
+  <script>
+const qs = window.location.search;
+const hash = document.location.hash;
+
+// ok
+document.write("<p>ok</p>");
+
+// ng
+document.write("ng" + qs);
+document.writeln("ng" + hash);
+  </script>
+
+</div>

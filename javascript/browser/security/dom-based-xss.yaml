@@ -1,5 +1,5 @@
 rules:
-- id: dom-based-xss-reflected
+- id: dom-based-xss
   mode: taint
   message: dom-xss
   languages:
@@ -30,10 +30,3 @@ rules:
     - pattern: $ELEMENT.outerHTML = $PAYLOAD
     - pattern: $JQ.add($PAYLOAD)
     - pattern: $JQ.html($PAYLOAD)
-- id: extract-html-to-javascript
-  mode: extract
-  languages:
-    - html
-  pattern: <script>$...SCRIPT</script>
-  extract: $...SCRIPT
-  dest-language: javascript
